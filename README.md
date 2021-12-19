@@ -17,20 +17,24 @@ virtualenv -p 3.8 .virtualenv
 ```shell-session
 source .virtualenv/bin/activate
 ```
-3. Install the dependencies
+3. Install python dependencies
 ```shell-session
 pip install -r requirements.txt
+pip install -r torch_requirements.txt -f https://download.pytorch.org/whl/lts/1.8/torch_lts.htm
+sudo apt-get install python3-tk  -y
 ```
-
-4. Install `berkeley-parser-analyser` as submodule
+4. Install system dependency EVALB
 ```shell-session
-git submodule update
+wget -O /tmp/EVALB.tgz https://nlp.cs.nyu.edu/evalb/EVALB.tgz
+tar zxf /tmp/EVALB.tgz
+cd /tmp/EVALB
+sudo make
+sudo cp -r /tmp/EVALB /usr/local/lib/EVALB
+sudo ln -sf /usr/local/lib/EVALB/evalb /usr/local/bin/
 ```
-
-4. Configure `berkeley-parser-analyser` package
+5. Download spaCy English Model
 ```shell-session
-cd berkeley-parser-analyser
-python setup.py install
+python -m spacy download en_core_web_md
 ```
 
 ## Start jupyter
